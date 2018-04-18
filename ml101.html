@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ML 101</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Lato);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Calibri'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      a {
+        color: #FFF;
+      }
+
+      .inverse {
+          background-color: #2c3e50;
+          color: #FFF;
+      }
+
+      .remark-slide-number {
+        font-size: 15pt;
+        color: #FFFFFF;
+        opacity: 0.5; /* default: 0.5 */
+    }
+
+      .bigger {
+          font-size: 30px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+
+Machine Learning / Deep Learning
+======
+
+---
+layout: false
+class: inverse, middle, bigger
+
+#Was ist Machine Learning?
+
+- Gewinnung von Wissen aus Daten ohne explizite Programmierung 
+- Nutzung zugrundeliegender Muster der Daten
+- Ziele: 
+  - Beantwortung konkreter Fragen
+  - Entdeckung neuer Muster/Beziehungen
+  - Vorhersage von Zuordnungen und Werten
+
+- Beispiele: z.B. Spam-Filter, Handschrifterkennung, Vorschläge für ähnliche Dokumente 
+
+---
+layout: false
+class: inverse, middle, bigger
+
+#Wie lernen wir?
+
+- Auswendig lernen
+- Abstrahieren
+
+---
+layout: false
+class: inverse, middle
+
+#Arten von Machine Learning
+
+- Überwachtes Lernen
+ - Mensch als Lehrer gibt Beispieldaten vor
+ - System lernt anhand der Beispieldaten
+ - z.B. Nächster Nachbar, Klassifikation, Regression, Entscheidungsbäume, Neuronale Netze
+
+
+- Unüberwachtes Lernen
+ - Kein Eingriff von Menschen notwendig
+ - z.B. Clustering, Neuronale Netze
+
+
+- Verschiedenste Kombinationen der beiden Kombinationen
+- Active Learning (Maschine ermittelt aussichtsreiche Daten und fragt nach Label)
+- Reinforcement Learning: Selbstständiges Lernen durch Belohnung/Bestrafung
+
+---
+layout: false
+class: inverse, middle
+
+#Ein Beispiel: NE Patriots
+
+- Receivers
+  - edelman = ['edelman', 178, 91]
+  - hogan = ['hogan', 185, 95]
+  - gronkowski = ['gronkowski', 198, 120]
+  - mitchell = ['mitchell', 185, 91]
+  - niklas = ['niklas', 198, 122]
+
+- Linemen
+  - cannon = ['cannon', 198, 152]
+  - solder = ['solder', 203, 147]
+  - mason = ['mason', 185, 141]
+  - thuney = ['thuney', 196, 138]
+  - karras = ['karras', 193, 138]
+
+---
+layout: false
+class: inverse, middle
+
+#Ein Beispiel: NE Patriots
+
+![Default-aligned image](plot_ne.png)
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Verfahren in Beispielen: Lineare Regression
+
+$$y = a + b \cdot x$$
+
+- Beschreibt eine Gerade anhand derer man Vorhersagen durchführen kann
+- Optimierung von `\(a\)` und `\(b\)` anhand von Beispielwerten
+- Anschließend kann anhand von `\(x\)` ein Wert für `\(y\)` vorhergesagt werden
+
+- Lerneffekt: Bestimmung von `\(a\)` und `\(b\)`
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Verfahren in Beispielen: Klassifikation (logistische Regression)
+
+$$Logit(Y_{1/0}|X_i=x_i) = \beta_0 + \beta_1 \cdot x_1 + \ldots + \beta_k \cdot x_k$$
+
+- Optimierung der Regressionsparameter z.B. mit Maximum-Likelihood-Verfahren
+- Beschreibt eine Logit-Kurve anhand derer man Vorhersagen über Wahrscheinlichkeit einer Zuordnung machen kann
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Datenrepräsentation (Merkmalsvektor)
+
+- Unser erstes Beispiel hatte nur zwei Dimensionen
+- Andere Probleme benötigen eventuell mehr Features zur Lösung 
+  - Beispiele: z.B. Analyse von Bildern, Texten, etc.
+- Darstellung als Vektoren
+- Daten können unterschiedliche repräsentiert werden
+  - One Hot Encoding $$\begin{bmatrix}1 \\\ 1 \\\ 0\end{bmatrix}$$
+  - Maße: tfidf (Term Frequency Inverse Document Frequency)
+  - ...
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Verfahren in Beispielen: Klassifikation (SVM)
+
+$$y_i = sgn(\langle w,x_i\rangle + b)$$
+
+- Beschreibt eine Hyperebene als Trennfläche zwischen den Klassen
+- Wird so bestimmt, dass Abstand zwischen Supportvektoren auf beiden Seiten der Ebene maximiert wird 
+- Je nach Position des Vergleichsvektors Zuordnung zu Klasse
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Wie können wir den Abstand im Vektorraum bestimmen?
+
+- Verschiedene Möglichkeiten zur Berechnung:
+  - Euklidsches Distanzmaß $$\sqrt{\sum_{i=1}^n(q_i - p_i)^2}$$
+  - Manhattan-Metrik $$\sum_{i}|a_i - b_i|$$
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Wie können wir optimieren/lernen?
+
+- Um Verbesserung durchführen zu können benötigen wir Feedback
+- Bei überwachtem Lernen aus Abweichung zwischen tatsächlichem und erwünschtem Ergebnis
+- In der Regel in Form einer Loss-Funktion die die Abweichung berechnet
+  - Mean Squared Error, Cross Entropy
+- Anpassung des Modells abhängig von Ergebnis
+- Im Vektorraum kann die Abweichung auch als Vektor ausgedrückt werden
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Wie können wir den Erfolg bestimmen?
+
+- Accuracy: Anteil richtig erkannter Element aus allen Elementen
+  - Nachteil: Kann alleine auf eine falsche Spur leiten (Bsp: Dummer Klassifikator)
+  - Besser: Auch Precision und Recall betrachten
+- Precision: $$\frac{TP}{TP + FP}$$
+- Recall: $$\frac{TP}{TP + FN}$$  
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Neuronale Netze
+
+- Versuch Konzepte aus menschlichem Gehirn zu verwenden
+- Netzwerk aus miteinander verbundenen Neuronen
+- Einfachste Art: Feedforward
+- Jedes Neuron gibt Eingabe und Weights an Aktivierungsfunktion
+  - Sigmoid Funktion
+  - RELU
+  - Softmax (Squash und Aufteilung auf Anteile von 1 -> Wahrscheinlichkeit)
+- Aktivierungsfunktion berechnet Ausgabe
+- Lernen durch Anpassung der Weights über Backpropagation mithilfe von Gradient Descent
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Was ist denn nun Deep Learning?
+
+- Deep Learning ist ein Neuronales Netz mit mehreren Hidden Layern
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Neuronale Netze
+
+- Verschiedene Arten von Neuronalen Netzen für verschiedene Anwendungsfälle z.B.
+  - CNN (Convolutional Neural Networks) für Bilder und NLP
+      - Mustererkennung
+  - RNN (Recurrent Neural Networks) für Anwendungsfälle die Kontext benötigen
+      - Sentiment Analysis
+      - Übersetzung
+
+https://towardsdatascience.com/the-mostly-complete-chart-of-neural-networks-explained-3fb6f2367464
+
+---
+layout: false
+class: center, inverse, middle, bigger
+
+###Neuronale Netze (Demo MNIST)
+
+Demo anhand von Handschrifterkennung mit Tensorflow
+
+https://cs.nyu.edu/~roweis/data.html
+https://cs.nyu.edu/~roweis/data/mnist_train0.jpg
+https://js.tensorflow.org/tutorials/mnist.html
+
+---
+layout: false
+class: inverse, middle, bigger
+
+###Coole Anwendungen
+
+- AutoML (Neuronale Netze erzeugen Neuronale Netze)
+- Pancake Robot (https://vimeo.com/20042665)
+- Deepmind AI (https://www.youtube.com/watch?v=gn4nRCC9TwQ)
+- Wrestling Bots (https://www.youtube.com/watch?v=2cjkKnAxCug)
+
+---
+layout: false
+class: center, inverse, middle, bigger
+
+###Danke für eure Aufmerksamkeit
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          ratio: '16:9',
+      });
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+
+      MathJax.Hub.Configured();    
+    </script>
+  </body>
+</html>
